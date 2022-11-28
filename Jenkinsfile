@@ -17,25 +17,33 @@ pipeline {
 
                 script {
                     sh "pwd && ls"
-                    sh "git clone https://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@github.com/madeniji017/bankapp_project_frontend.git"
+                    sh "git clone https://github.com/DevProject03/Frontendapp.git"
                 }
                 
             }
         }
         stage("Build"){
             steps {
-                script{
-                    
-                    sh "cd bankapp_project_frontend && npm install"
-                   
-                    
+                script{ 
+                    sh "cd Frontendapp && npm install"
+                }
+            }
+        }
+        node {
+            stage('SCM') {
+                checkout scm
+            }
+            stage('SonarQube Analysis') {
+                def scannerHome = tool 'SonarScanner';
+                withSonarQubeEnv() {
+                    sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
         }
         stage("Build image"){
             steps{
                 script{
-                    sh "cd bankapp_project_frontend && docker build -t mlarry/frontend_app:1.0 ."
+                    sh "cd Frontendapp && docker build -t lizdockerhub/crudapp"
                     
                 }
             }
@@ -44,8 +52,8 @@ pipeline {
         stage("Push image"){
             steps{
                 script{
-                    sh "docker login -u ${env.user} -p ${env.passwd}"
-                    sh "docker push mlarry/frontend_app:1.0"
+                    sh "docker login -u ${env.username} -p ${env.password}"
+                    sh "docker push lizdockerhub/crudapp"
                 }
             }
 
