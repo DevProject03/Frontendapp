@@ -29,14 +29,7 @@ pipeline {
                 }
             }
         }
-        stage('SCM') {
-            steps{
-                script{
-                    sh "checkout scm"
-                }
-            }
-
-        }
+     
         stage('SonarQube analysis') {
             steps {
                 script{
