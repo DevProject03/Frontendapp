@@ -29,14 +29,15 @@ pipeline {
                 }
             }
         }
+        stage('SCM') {
+            checkout scm
+        }
         stage('SonarQube analysis') {
             steps {
                 script{
-                    def scannerHome = tool 'SonarScanner';
-                    withSonarQubeEnv('sonarqube-9.7.1') {
-                        sh "${tool("SonarScanner")}/bin/sonar-scanner \
-                        -Dsonar.projectKey=frontendapp \
-                        -Dsonar.projectName=frontendapp"
+                     def scannerHome = tool 'SonarScanner';
+                     withSonarQubeEnv() {
+                        sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
             }   
