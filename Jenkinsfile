@@ -30,7 +30,12 @@ pipeline {
             }
         }
         stage('SCM') {
-            checkout scm
+            steps{
+                script{
+                    sh "checkout scm"
+                }
+            }
+
         }
         stage('SonarQube analysis') {
             steps {
