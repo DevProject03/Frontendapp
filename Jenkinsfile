@@ -32,9 +32,9 @@ pipeline {
         stage('SonarQube analysis') {
             steps {
                 script{
-                    def scannerHome = tool 'SonarQubeScanner-9.7.1';
-                    withSonarQubeEnv('sonarqube') {
-                        sh "${tool("SonarQubeScanner-9.7.1")}/bin/sonar-scanner \
+                    def scannerHome = tool 'SonarScanner';
+                    withSonarQubeEnv('sonarqube-9.7.1') {
+                        sh "${tool("SonarScanner")}/bin/sonar-scanner \
                         -Dsonar.projectKey=frontendapp \
                         -Dsonar.projectName=frontendapp"
                     }
