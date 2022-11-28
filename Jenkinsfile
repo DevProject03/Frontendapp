@@ -29,18 +29,17 @@ pipeline {
                 }
             }
         }
-        stage("Sonar"){
-            node {
-                stage('SCM') {
-                    checkout scm
-                        }
-                stage('SonarQube analysis') {
-                    def scannerHome = tool 'SonarScanner';
-                    withSonarQubeEnv() {
-                        sh "${scannerHome}/bin/sonar-scanner"
+        stage('SonarQube analysis') {
+            steps {
+                script{
+                    def scannerHome = tool 'SonarQubeScanner-9.7.1';
+                    withSonarQubeEnv('sonarqube') {
+                        sh "${tool("SonarQubeScanner-9.7.1")}/bin/sonar-scanner \
+                        -Dsonar.projectKey=frontendapp \
+                        -Dsonar.projectName=frontendapp"
                     }
                 }
-            }
+            }   
         }
         stage("Build image"){
             steps{
