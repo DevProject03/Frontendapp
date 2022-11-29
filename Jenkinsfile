@@ -33,6 +33,7 @@ pipeline {
         stage('SonarQube analysis') {
             steps {
                 script{
+                     sh "npm install -g sonarqube-scanner"
                      def scannerHome = tool 'SonarScanner';
                      withSonarQubeEnv() {
                         sh "${scannerHome}/bin/sonar-scanner"
