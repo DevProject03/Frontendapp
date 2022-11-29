@@ -37,8 +37,7 @@ pipeline {
                      sh "ls /var/lib/jenkins/tools/"
                      def scannerHome = tool 'SonarScanner';
                      withSonarQubeEnv() {
-                        sh "${scannerHome}/bin/sonar-scanner \ -Dsonar.projectKey=Frontendapp \
-                            -Dsonar.sources=. \"
+                        sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
             }   
