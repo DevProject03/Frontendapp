@@ -45,7 +45,7 @@ pipeline {
         stage("Build image"){
             steps{
                 script{
-                    sh "cd Frontendapp && docker build -t lizdockerhub/crudapp"
+                    sh "cd Frontendapp && docker build -t lizdockerhub/frontendapp ."
                     
                 }
             }
@@ -55,7 +55,7 @@ pipeline {
             steps{
                 script{
                     sh "docker login -u ${env.username} -p ${env.password}"
-                    sh "docker push lizdockerhub/crudapp"
+                    sh "docker push lizdockerhub/frontendapp"
                 }
             }
 
