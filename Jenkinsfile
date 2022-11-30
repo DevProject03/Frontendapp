@@ -36,7 +36,7 @@ pipeline {
 //                      sh "npm install -D sonarqube-scanner"
 //                      sh "ls /var/lib/jenkins/tools/"
 //                      def scannerHome = tool 'SonarScanner';
-                     withSonarQubeEnv("sonarqube-9.7.1") {
+                     withSonarQubeEnv(sonarqube-9.7.1) {
                         sh "${SonarScanner}/bin/sonar-scanner -Dsonar.projectKey=Frontendapp -Dsonar.sources=. "
                     }
                 }
