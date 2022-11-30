@@ -33,7 +33,7 @@ pipeline {
         stage('SonarQube analysis') {
             steps {
                 script{
-                    sh "cd Frontendapp && sonar-scanner \ -Dsonar.projectKey=Frontendapp \ -Dsonar.sources=. \ -Dsonar.host.url=https://72e8-41-58-130-138.eu.ngrok.io \-Dsonar.login=sqp_6a630dc78f2e3584a8d63f0dd8608eed6dba98b4"
+                    sh "cd Frontendapp && sonar-scanner -Dsonar.projectKey=Frontendapp -Dsonar.host.url=https://72e8-41-58-130-138.eu.ngrok.io -Dsonar.login=sqp_6a630dc78f2e3584a8d63f0dd8608eed6dba98b4"
 //                      sh "npm install -D sonarqube-scanner"
 //                      sh "ls /var/lib/jenkins/tools/"
 //                      def scannerHome = tool 'SonarScanner';
