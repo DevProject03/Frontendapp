@@ -39,7 +39,7 @@ pipeline {
 //                      def scannerHome = tool 'SonarScanner';
 //                      withSonarQubeEnv("sonarqube-9.7.1") {
 //                         sh "cd Frontendapp && ${SonarScanner}/bin/sonar-scanner -Dsonar.projectKey=Frontendapp -Dsonar.sources=. "
-                    }
+                    
                 }
             }   
         }
