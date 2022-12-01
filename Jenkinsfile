@@ -44,32 +44,32 @@ pipeline {
               }
             }
         }
-        stage("Build image"){
-            steps{
-                script{
-                    sh "cd Frontendapp && docker build -t lizdockerhub/frontendapp ."
+//         stage("Build image"){
+//             steps{
+//                 script{
+//                     sh "cd Frontendapp && docker build -t lizdockerhub/frontendapp ."
                     
-                }
-            }
+//                 }
+//             }
 
-        }
-        stage("Push image"){
-            steps{
-                script{
-                    sh "docker login -u ${env.username} -p ${env.password}"
-                    sh "docker push lizdockerhub/frontendapp"
-                }
-            }
+//         }
+//         stage("Push image"){
+//             steps{
+//                 script{
+//                     sh "docker login -u ${env.username} -p ${env.password}"
+//                     sh "docker push lizdockerhub/frontendapp"
+//                 }
+//             }
 
-        }
-         stage("Docker logout"){
-            steps{
-                script{
-                    sh "docker logout"
-                }
-            }
+//         }
+//          stage("Docker logout"){
+//             steps{
+//                 script{
+//                     sh "docker logout"
+//                 }
+//             }
 
-        }
+//         }
 
     }
 }
