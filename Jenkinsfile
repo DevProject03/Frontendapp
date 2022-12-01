@@ -33,7 +33,7 @@ pipeline {
         stage('SonarQube analysis') {
             steps {
                 script{
-                    withSonarQubeEnv('sonarqube-9.7.1)
+                    withSonarQubeEnv('sonarqube-9.7.1')
                     sh "cd Frontendapp && sonar-scanner -Dsonar.projectKey=Frontendapp -Dsonar.host.url=https://3184-41-58-130-138.eu.ngrok.io -Dsonar.login=sqp_6a630dc78f2e3584a8d63f0dd8608eed6dba98b4"
                 }
             }   
