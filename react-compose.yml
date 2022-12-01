@@ -1,0 +1,11 @@
+version: '3.9'
+services:
+  frontend:
+    image: 'lizdockerhub/frontendapp' 
+    ports:
+      - '8000:80'
+  backend:
+    image: 'lizdockerhub/dotnetapp'
+    ports:
+      - '8001:80'
+      

@@ -17,47 +17,60 @@ pipeline {
 
                 script {
                     sh "pwd && ls"
-                    sh "git clone https://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@github.com/madeniji017/bankapp_project_frontend.git"
+                    sh "git clone https://github.com/DevProject03/Frontendapp.git"
                 }
                 
             }
         }
         stage("Build"){
             steps {
+                script{ 
+                    sh "cd Frontendapp && npm install"
+                }
+            }
+        }
+     
+        stage('SonarQube analysis') {
+            steps {
                 script{
+                    withSonarQubeEnv('sonarqube-9.7.1')
+                    sh "cd Frontendapp && sonar-scanner -Dsonar.projectKey=Frontendapp -Dsonar.host.url=https://3184-41-58-130-138.eu.ngrok.io -Dsonar.login=sqp_6a630dc78f2e3584a8d63f0dd8608eed6dba98b4"
+                }
+            }   
+        }
+        stage("Quality Gate") {
+            steps {
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+        }
+//         stage("Build image"){
+//             steps{
+//                 script{
+//                     sh "cd Frontendapp && docker build -t lizdockerhub/frontendapp ."
                     
-                    sh "cd bankapp_project_frontend && npm install"
-                   
-                    
-                }
-            }
-        }
-        stage("Build image"){
-            steps{
-                script{
-                    sh "cd bankapp_project_frontend && docker build -t mlarry/frontend_app:1.0 ."
-                    
-                }
-            }
+//                 }
+//             }
 
-        }
-        stage("Push image"){
-            steps{
-                script{
-                    sh "docker login -u ${env.user} -p ${env.passwd}"
-                    sh "docker push mlarry/frontend_app:1.0"
-                }
-            }
+//         }
+//         stage("Push image"){
+//             steps{
+//                 script{
+//                     sh "docker login -u ${env.username} -p ${env.password}"
+//                     sh "docker push lizdockerhub/frontendapp"
+//                 }
+//             }
 
-        }
-         stage("Docker logout"){
-            steps{
-                script{
-                    sh "docker logout"
-                }
-            }
+//         }
+//          stage("Docker logout"){
+//             steps{
+//                 script{
+//                     sh "docker logout"
+//                 }
+//             }
 
-        }
+//         }
 
     }
 }

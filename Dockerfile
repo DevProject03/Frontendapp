@@ -1,11 +1,8 @@
-FROM node:16-alpine 
+FROM node:19-alpine 
 WORKDIR /app
 COPY . .
-# ==== BUILD =====
-# Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
-RUN npm ci 
-RUN npm run build
-# Set the env to "production"
-#ENV NODE_ENV production
+
+RUN npm install
+
 EXPOSE 3000
-CMD [ "npx", "serve", "build" ]
+CMD [ "npm" "start"]
