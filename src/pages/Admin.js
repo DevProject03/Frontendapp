@@ -1,6 +1,6 @@
 import React from "react"
 import Header from "../LoginComponents/Header"
-import Login from "../LoginComponents/Login"
+import AdminDashboard from "../LoginComponents/AdminDashboard"
 import Footer from "../LoginComponents/Footer"
 import Sidebar from '../Sidebar'
 
@@ -9,7 +9,7 @@ export default function Admin() {
         <>
             <Header />
             <Sidebar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} />
-            <Login />
+            <AdminDashboard />
             <Footer />
         </>
   

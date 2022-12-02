@@ -1,37 +1,64 @@
 import React from "react"
+import { Link, useNavigate } from "react-router-dom"
+import validator from 'validator'
+import CustomerService from "../services/CustomerService";
 
 export default function Signup() {
-    const [formData, setFormData] = React.useState(
+    const [customer, setCustomer] = React.useState(
         {
-            firstName: "", 
-            lastName: "", 
-            email: "", 
-            comments: "", 
-            isFriendly: true,
-            employment: "",
-            favColor: ""
+            firstName: "",
+            middleName: "", 
+            lastName: "",
+            bvn: "",
+            dob: "",
+            phoneNumber: "", 
+            emailAddress: "", 
+            password: "", 
+            confirmPassword: "",
+            accountType: ""
         }
     )
-    console.log(formData.favColor)
+    console.log(customer)
+
+    const navigate = useNavigate();
+
+    const [errorMessage, setErrorMessage] = React.useState('')
+    console.log(errorMessage)
     
     function handleChange(event) {
         console.log(event)
         const {name, value, type, checked} = event.target
-        setFormData(prevFormData => {
+
+        setCustomer(prevcustomer => {
             return {
-                ...prevFormData,
+                ...prevcustomer,
                 [name]: type === "checkbox" ? checked : value
             }
         })
+        if (type ==="password") {
+        if (validator.isStrongPassword(value, {
+            minLength: 7, minLowercase: 1,
+            minUppercase: 1, minNumbers: 1, minSymbols: 1
+          })) {
+            setErrorMessage('Password is strong')
+          } else {
+            setErrorMessage('Password is not strong')
+          }}
     }
     
     function handleSubmit(event) {
         event.preventDefault()
-        if(formData.password === formData.passwordConfirm) {
-            console.log("Successfully signed up")
+        if(customer.password === customer.confirmPassword) {
+            CustomerService.saveCustomer(customer)
+            .then((response) => {
+              console.log(response);
+              navigate("/admin");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         } else {
-            console.log("Passwords do not match")
-            return
+            setErrorMessage("Password does not match")
         }
     }
     
@@ -39,103 +66,125 @@ export default function Signup() {
     //     async function getDetails() {
     //         const res = await fetch("https://api.imgflip.com/get_memes")
     //         const data = await res.json()
-    //         setFormData(data.data.memes)
+    //         setCustomer(data.data.memes)
     //     }
     //     getMemes()
-    // }, [])    
+    // }, [])
     
     return (
         <main>
             <div className="card">
-            <form className="form">
-                <br />
+            <form className="form" onSubmit={handleSubmit}>
+                <br />               
                 <input 
                     type="text"
                     placeholder="Firstname"
                     className="form--input"
                     name="firstName"
-                    value={formData.firstName}
+                    value={customer.firstName}
                     onChange={handleChange}
+                    required
                 />
                 <input 
                     type="text"
                     placeholder="Middlename"
                     className="form--input"
                     name="middleName"
-                    value={formData.middleName}
+                    value={customer.middleName}
                     onChange={handleChange}
+                    required
                 />
                 <input 
                     type="text"
                     placeholder="Lastname"
                     className="form--input"
                     name="lastName"
-                    value={formData.topText}
+                    value={customer.lastName}
                     onChange={handleChange}
+                    required
                 />
                 <input 
                     type="text"
                     placeholder="BVN"
                     className="form--input"
                     name="bvn"
-                    value={formData.topText}
+                    value={customer.bvn}
                     onChange={handleChange}
+                    required
                 />
+                <label htmlFor="dob" style={{font: "thin", fontSize: "14px", margin: "10px"}}>Date of Birth:</label>
                 <input 
-                    type="text"
+                    type="date"
                     placeholder="D.O.B"
                     className="form--input"
                     name="dob"
-                    value={formData.topText}
+                    value={customer.dob}
                     onChange={handleChange}
+                    required
                 />
                 <input 
-                    type="text"
-                    placeholder="BVN"
+                    type="tel"
+                    placeholder="0800-000-0000"
                     className="form--input"
-                    name="bvn"
-                    value={formData.topText}
+                    name="phoneNumber"
+                    value={customer.phoneNumber}
                     onChange={handleChange}
+                    // pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}"
+                    required
                 />
                 <input 
-                    type="text"
+                    type="email"
                     placeholder="Email Address"
                     className="form--input"
-                    name="topText"
-                    value={formData.topText}
+                    name="emailAddress"
+                    value={customer.emailAddress}
                     onChange={handleChange}
+                    required
                 />
                 <input 
-                    type="text"
+                    type="password"
                     placeholder="Password"
                     className="form--input"
-                    name="topText"
-                    value={formData.topText}
-                    onChange={handleChange}
+                    name="password"
+                    value={customer.password}
+                    onChange={handleChange}                    
+                    required
                 />
+                {errorMessage === '' ? null :
+                <small style={{
+                    fontWeight: 'thin',
+                    margin: "10px",
+                    color: 'green',
+                }}>{errorMessage}</small>}
                 <input 
-                    type="text"
+                    type="password"
                     placeholder="Confirm Password"
                     className="form--input"
-                    name="topText"
-                    value={formData.topText}
+                    name="confirmPassword"
+                    value={customer.confirmPassword}
                     onChange={handleChange}
+                    required
                 />
                 <select className="form--input"
                         id="accountType" 
-                        value={formData.accountType}
+                        value={customer.accountType}
                         onChange={handleChange}
                         name="accountType"
+                        required
                     >
-                        <option className="form--input" value="0">Account Type:</option>
+                        <option className="form--input" value="*">Account Type:</option>
+                        <option className="form--input" value="0">Savings</option>
                         <option className="form--input" value="1">Current</option>
-                        <option className="form--input" value="2">Savings</option>
                     </select>
                 <button 
                     className="form--button"
                 >
                     SIGN UP
                 </button>
+                <Link to="/"
+                style={{textDecoration: 'none', textAlign: 'center'}}>
+                    <p>Already have an account? <b>Login!</b></p>
+                </Link>
             </form>
             </div>
         </main>
