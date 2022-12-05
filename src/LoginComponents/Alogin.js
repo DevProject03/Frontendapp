@@ -6,7 +6,6 @@ export default function Login() {
         {
             email: "",
             password: "",
-            accountType: ""
         }
     )
     console.log(formData.accountType)
@@ -23,6 +22,10 @@ export default function Login() {
     
     function handleSubmit(event) {
         event.preventDefault()
+        // if(formData.email != ) {
+        //     console.log("Not an Admin. USER LOGIN")
+        // }
+    
         if(formData.password === formData.passwordConfirm) {
             console.log("Successfully signed up")
         } else {
@@ -36,8 +39,8 @@ export default function Login() {
             <article className="card">
                 <form className="form" onSubmit={handleSubmit}>
                     <br />
-                    <h3 style={{textAlign: 'center', color: '#672280'}}>USER LOGIN</h3>
-                    <br />
+                        <h3 style={{textAlign: 'center', color: '#672280'}}>ADMIN LOGIN</h3>
+                    <br /> 
                     <input 
                         type="text"
                         placeholder="Email Address"
@@ -54,16 +57,6 @@ export default function Login() {
                         value={formData.password}
                         onChange={handleChange}
                     />
-                    <select className="form--input"
-                        id="accountType" 
-                        value={formData.accountType}
-                        onChange={handleChange}
-                        name="accountType"
-                    >
-                        <option className="form--input" value="0">Account Type:</option>
-                        <option className="form--input" value="1">Current</option>
-                        <option className="form--input" value="2">Savings</option>
-                    </select>
                     
                 </form>
                 <button 
@@ -76,17 +69,18 @@ export default function Login() {
                 <Link to="/"
                 style={{textDecoration: 'none', textAlign: 'center'}}>
                     <p>Forgot Password? <b>Click to Reset.</b></p>
-                </Link>                
-
-                <Link to="/adminlog"
-                style={{textDecoration: 'none', textAlign: 'center'}}>
-                    <p>Admin? <b>Go to Admin!</b></p>
                 </Link>
 
                 <Link to="/signup"
                 style={{textDecoration: 'none', textAlign: 'center'}}>
                     <p>Don't have an account? <b>Signup!</b></p>
                 </Link>
+
+                <Link to="/"
+                style={{textDecoration: 'none', textAlign: 'center'}}>
+                    <p>Already have an account? <b>User Login!</b></p>
+                </Link>
+
                 </div>
             </article>
         </main>

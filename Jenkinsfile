@@ -33,17 +33,16 @@ pipeline {
         stage('SonarQube analysis') {
             steps {
                 script{
-                     def scannerHome = tool 'SonarScanner';
-                     withSonarQubeEnv() {
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
+              
+                    sh "cd Frontendapp && sonar-scanner -Dsonar.projectKey=Frontendapp -Dsonar.host.url=https://7042-41-58-130-138.eu.ngrok.io -Dsonar.login=sqp_6a630dc78f2e3584a8d63f0dd8608eed6dba98b4"
                 }
             }   
         }
+      
         stage("Build image"){
             steps{
                 script{
-                    sh "cd Frontendapp && docker build -t lizdockerhub/crudapp"
+                    sh "cd Frontendapp && docker build -t lizdockerhub/frontendapp ."
                     
                 }
             }
@@ -53,7 +52,7 @@ pipeline {
             steps{
                 script{
                     sh "docker login -u ${env.username} -p ${env.password}"
-                    sh "docker push lizdockerhub/crudapp"
+                    sh "docker push lizdockerhub/frontendapp"
                 }
             }
 

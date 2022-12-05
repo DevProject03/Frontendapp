@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import Logo from "../images/Logo.png"
 
 export default function Header() {
@@ -9,7 +10,10 @@ export default function Header() {
                 className="header--image"
             />
             <h2 className="header--title">CRUD MFB</h2>
-            <h4 className="header--project">LOGIN PAGE</h4>
+            <Link to="/adminlog"
+            style={{textDecoration: 'none', color: 'white'}}>
+            <h4 to="/adminlog" className="header--project">ADMIN PAGE</h4>
+            </Link>
         </header>
     )
 }
