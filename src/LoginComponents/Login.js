@@ -32,10 +32,14 @@ export default function Login() {
                 })
                 .then((response) => response.json())
                 .then(localStorage.clear())
-                .then((json) => localStorage.setItem("customer", JSON.stringify(json)))
+                .then((json) =>  {
+                    localStorage.setItem("customer", JSON.stringify(json))
+                    window.location.href="/userdash"
+                })
                 .catch((error) => {
                 console.log(error)});
-                navigate("/userdash");
+                // window.location.href="/userdash"
+                // navigate("/userdash");
         }
 
     return (

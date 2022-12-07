@@ -30,10 +30,10 @@ export default function CustomerDashboard() {
     useEffect(() => {
       if (localStorage.getItem("customer")) {
         setCustomers(JSON.parse(localStorage.getItem("customer")));
-        setLoading(1)
+        // setLoading(1)
         console.log(loading)
       }
-    }, [loading])
+    }, [])
 
 
 
