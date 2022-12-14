@@ -34,7 +34,7 @@ pipeline {
             steps {
                 script{
               
-                    sh "cd Frontendapp && sonar-scanner -Dsonar.projectKey=Frontendapp -Dsonar.host.url=https://fcaa-41-58-130-138.eu.ngrok.io -Dsonar.login=sqp_6a630dc78f2e3584a8d63f0dd8608eed6dba98b4"
+                    sh "cd Frontendapp && sonar-scanner -Dsonar.projectKey=Frontendapp -Dsonar.host.url=https://6dd1-41-58-130-138.eu.ngrok.io -Dsonar.login=sqp_6a630dc78f2e3584a8d63f0dd8608eed6dba98b4"
                 }
             }   
         }
